@@ -114,7 +114,7 @@ function anggaran_add()
     $pagu     = (int)$_POST["pagu"];
 
     // Handle attachment
-    $filename = handle_upload('lampiran', './lampiran/', $id, 500);
+    $filename = handle_upload('lampiran', 'lampiran/', $id, 500);
 
     // Insert anggaran
     $stmt1 = $bp->prepare("INSERT INTO anggaran (id_anggaran, tahun_anggaran, akun_anggaran, ket_anggaran, pagu_anggaran, serapan_anggaran, status)
@@ -165,7 +165,7 @@ function pagu_add()
     $ta   = $sta['tahun_anggaran'];
     $pagu = $sta['pagu_anggaran'] + $jum_in;
 
-    $filename = handle_upload('lampiran', './lampiran/', $id, 500);
+    $filename = handle_upload('lampiran', 'lampiran/', $id, 500);
 
     // Insert nota
     $stmt = $bp->prepare("INSERT INTO nota (id_nota, kode_nota, jenis, id_anggaran, tanggal, pemroses, jum_in, keterangan, lampiran, status)
@@ -208,7 +208,7 @@ function barang()
     $harga        = (int)$_POST["harga"];
     $keterangan   = trim($_POST["keterangan"]);
 
-    $filename = handle_upload('lampiran', './img/barang/', $id, 400);
+    $filename = handle_upload('lampiran', 'img/barang/', $id, 400);
 
     $stmt = $bp->prepare("INSERT INTO stok_barang (id_barang, kategori, nama_barang, satuan, stok_minimal, harga_satuan, keterangan, gambar)
                           VALUES (:id, :kat, :nama, :sat, :min, :harga, :ket, :gambar)");
@@ -311,7 +311,7 @@ function pesan()
     $satuan      = trim($_POST["satuan"]);
     $keterangan  = trim($_POST["keterangan"]);
 
-    $filename = handle_upload('lampiran', './lampiran/', $id, 400);
+    $filename = handle_upload('lampiran', 'lampiran/', $id, 400);
 
     $stmt = $bp->prepare("INSERT INTO pesanan (id_pesanan, id_seksi, petugas, id_barang, nama_barang, ket_barang, jumlah, satuan, tgl_pesan, keterangan, lampiran, jumlah_stok)
                           VALUES (:id, :seksi, :ptg, :brg, :nama, :ket_brg, :jum, :sat, :tgl, :ket, :lamp, 0)");
@@ -444,7 +444,7 @@ function bmn()
     $harga_oleh   = (int)$_POST["harga_oleh"];
     $keterangan   = trim($_POST["keterangan"]);
 
-    $filename = handle_upload('lampiran', './img/barang/', $id, 400);
+    $filename = handle_upload('lampiran', 'img/barang/', $id, 400);
 
     $stmt = $bp->prepare("INSERT INTO bmn (id_bmn, kat_bmn, kode_bmn, nama_bmn, jumlah_bmn, satuan, asal_oleh, tgl_oleh, bukti_oleh, harga_oleh, stok_minimal, keterangan, gambar, aktif)
                           VALUES (:id, :kat, :kode, :nama, :jum, :sat, :asal, :tgl, :bukti, :harga, 0, :ket, :gambar, 'ya')");
@@ -487,7 +487,7 @@ function bmn_dist()
     $nama_lampiran  = trim($_POST["nama_lampiran"]);
     $keterangan     = trim($_POST["keterangan"]);
 
-    $filename = handle_upload('lampiran', './lampiran/', $id, 400);
+    $filename = handle_upload('lampiran', 'lampiran/', $id, 400);
 
     $stmt = $bp->prepare("INSERT INTO bmn_dist (id_dist, id_bmn, jumlah_pakai, keterangan, seksi, pengguna, lokasi, kondisi, tgl_dist, lampiran, nama_lampiran)
                           VALUES (:id, :bmn, :jum, :ket, :seksi, :pgg, :lok, :kon, :tgl, :lamp, :nm_lamp)");
@@ -529,7 +529,7 @@ function bmn_kembali()
     $nama_lampiran    = trim($_POST["nama_lampiran"]);
     $keterangan       = trim($_POST["keterangan"]);
 
-    $filename = handle_upload('lampiran', './lampiran/', $id, 400);
+    $filename = handle_upload('lampiran', 'lampiran/', $id, 400);
 
     $stmt = $bp->prepare("INSERT INTO bmn_dist (id_dist, id_bmn, jumlah_kembali, keterangan, seksi, pengguna, lokasi, kondisi, tgl_dist, lampiran, nama_lampiran)
                           VALUES (:id, :bmn, :jum, :ket, :seksi, :pgg, :lok, :kon, :tgl, :lamp, :nm_lamp)");

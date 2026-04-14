@@ -70,7 +70,7 @@ function setting()
         $email   = trim($_POST["email"]);
         $title   = trim($_POST["title"]);
 
-        $filename = handle_upload('logo', '../img/', 'logo', 100);
+        $filename = handle_upload('logo', 'img/', 'logo', 100);
 
         $stmt = $bp->prepare("INSERT INTO setting (setting_id, nama_kantor, alamat_kantor, telp_kantor, email_kantor, title_head, logo_header)
                               VALUES (:id, :nama, :alamat, :telp, :email, :title, :logo)");
@@ -133,7 +133,7 @@ function anggaran()
        ->execute(['akun' => $akun, 'ket' => $ket_akun, 'pagu' => $pagu_baru, 'id' => $id_anggaran]);
 
     // Handle attachment
-    $filename = handle_upload('lampiran', './lampiran/', $id_nota, 500);
+    $filename = handle_upload('lampiran', 'lampiran/', $id_nota, 500);
 
     // Insert nota record
     $bp->prepare("INSERT INTO nota (id_nota, kode_nota, jenis, id_anggaran, tanggal, pemroses, jum_out, jum_in, keterangan, lampiran, status)
@@ -282,7 +282,7 @@ function stok_tambah()
         }
 
         // Handle attachment
-        $filename = handle_upload('lampiran', './lampiran/', $id_nota, 500);
+        $filename = handle_upload('lampiran', 'lampiran/', $id_nota, 500);
 
         // Insert nota record
         $bp->prepare("INSERT INTO nota (id_nota, kode_nota, jenis, id_anggaran, tanggal, pemroses, jum_out, jum_in, keterangan, lampiran, status)

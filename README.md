@@ -132,4 +132,19 @@ Feel free to fork this project and submit pull requests. For major changes, plea
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
+## 📡 REST API (v1)
+
+The system includes a comprehensive JSON API for external integrations, mobile apps, or IoT inventory trackers.
+
+### Endpoints
+- **GET** `/api/v1/index.php?resource=stats`: Real-time inventory metrics.
+- **GET** `/api/v1/index.php?resource=inventory`: Full item list including stock levels.
+- **GET** `/api/v1/index.php?resource=alerts`: Lists items below the minimum stock threshold.
+- **GET** `/api/v1/index.php?resource=activity`: Recent stock movements (limit 20).
+
+### Authentication
+- **Session-Based**: Automatically works if logged into the web console.
+- **Token-Based**: Include `Authorization: Bearer mika_persediaan_2026_secret` in Headers.
+
+---
 *Maintained by the Persediaan Development Team.*

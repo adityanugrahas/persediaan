@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS setting (
   telp_kantor  VARCHAR(20) NOT NULL,
   email_kantor VARCHAR(50) NOT NULL,
   logo_header  VARCHAR(50) NOT NULL,
+  favicon      VARCHAR(50) NOT NULL DEFAULT 'favicon.png',
   created_at   TIMESTAMPTZ DEFAULT NOW(),
   updated_at   TIMESTAMPTZ DEFAULT NOW()
 );

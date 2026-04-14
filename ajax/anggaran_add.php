@@ -1,5 +1,6 @@
 <?php
 session_start();
+include("../global/koneksi.php");
 require_once("../global/ajax_header.php");
 ?>
 <div id="custom-content" class="modal-block modal-block-md">

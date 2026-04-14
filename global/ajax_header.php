@@ -7,7 +7,7 @@ $is_ajax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTT
 
 if (!$is_ajax): 
     // Standard branding fetch if not already in context
-    if (!isset($set)) {
+    if (!isset($set) && isset($bp)) {
         $set = db_fetch($bp, "SELECT logo_header, favicon FROM setting LIMIT 1");
     }
 ?>

@@ -74,39 +74,66 @@ body {
     -webkit-backdrop-filter: blur(20px) !important;
     border-bottom: 1px solid var(--glass-border) !important;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
-    height: 75px !important;
+    height: 70px !important;
     z-index: 1002 !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .logo-container {
-    padding-left: 20px;
-    height: 75px;
+    padding: 0 20px !important;
+    height: 70px !important;
+    display: flex;
+    align-items: center;
+    background: transparent !important;
+    width: auto !important;
+}
+
+.header-right {
+    height: 70px !important;
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+}
+
+/* Search bar refinement */
+.header .search {
+    margin: 0 20px !important;
+    width: 280px;
+}
+
+.header .search .input-group {
+    background: var(--glass-medium) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 30px !important;
+    padding: 2px 2px 2px 15px !important;
     display: flex;
     align-items: center;
 }
 
-.logo-container form.logo {
-    margin-left: 30px !important;
-    margin-bottom: 0 !important;
-    max-width: 400px;
-    flex-grow: 1;
+.header .search .form-control {
+    background: transparent !important;
+    border: none !important;
+    color: #fff !important;
+    box-shadow: none !important;
+    height: 32px !important;
+    font-size: 0.8rem;
+    padding: 0 !important;
 }
 
-.logo-container form.logo .input-group {
-    margin-bottom: 0 !important;
-}
-
-.logo-container form.logo .form-control {
-    height: 42px !important;
-    background: rgba(0, 0, 0, 0.2) !important;
-    border-radius: 20px 0 0 20px !important;
-    padding-left: 20px !important;
-}
-
-.logo-container form.logo .btn-primary {
-    border-radius: 0 20px 20px 0 !important;
-    height: 42px !important;
-    padding: 0 25px !important;
+.header .search .btn-primary {
+    border-radius: 50% !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px var(--primary-glow) !important;
+    margin-left: 10px;
+    border: none !important;
 }
 
 /* Sidebar Glassmorphism */
@@ -414,6 +441,47 @@ ul.nav-main .nav-children li a:hover {
     background: transparent !important;
 }
 
+/* Inventory Item Grid Modernization */
+.card-item {
+    background: var(--glass-soft) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 20px !important;
+    text-align: center;
+    transition: var(--transition-smooth);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-item:hover {
+    background: var(--glass-medium) !important;
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.card-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    margin-bottom: 15px;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+}
+
+.card-item .item-name {
+    font-weight: 700;
+    color: #fff;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.card-item .item-stock {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
 /* Modern Form Elements */
 .form-control {
     background: var(--glass-medium) !important;
@@ -596,15 +664,16 @@ ul.nav-main .nav-children li a:hover {
 
 /* Dropdown Menus Glassmorphism */
 .dropdown-menu {
-    background: rgba(15, 23, 42, 0.85) !important;
-    backdrop-filter: blur(25px) !important;
-    -webkit-backdrop-filter: blur(25px) !important;
+    background: rgba(15, 23, 42, 0.95) !important;
+    backdrop-filter: blur(30px) !important;
+    -webkit-backdrop-filter: blur(30px) !important;
     border: 1px solid var(--glass-border-bright) !important;
     border-radius: var(--radius-md) !important;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5) !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6) !important;
     padding: 10px !important;
-    margin-top: 10px !important;
-    animation: fadeInDown 0.3s ease-out;
+    margin-top: 15px !important;
+    animation: fadeInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 2000;
 }
 
 .dropdown-menu li a {
@@ -634,6 +703,45 @@ ul.nav-main .nav-children li a:hover {
     width: 320px !important;
     padding: 0 !important;
     overflow: hidden;
+}
+
+.notifications > li {
+    margin: 0 4px !important;
+}
+
+.notifications > li > a {
+    background: var(--glass-soft) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 50% !important;
+    width: 38px !important;
+    height: 38px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    color: #fff !important;
+    transition: var(--transition-smooth);
+    position: relative;
+}
+
+.notifications > li > a:hover {
+    background: var(--glass-medium) !important;
+    transform: translateY(-2px);
+    border-color: var(--glass-border-bright) !important;
+}
+
+.notifications > li > a i { font-size: 1rem !important; }
+
+.notifications .badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--danger) !important;
+    color: #fff !important;
+    border: 2px solid var(--bg-deep);
+    border-radius: 10px;
+    padding: 2px 5px;
+    font-size: 0.6rem;
+    font-weight: 800;
 }
 
 .notification-title {

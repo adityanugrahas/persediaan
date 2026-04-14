@@ -315,7 +315,7 @@ if ($level === "su") {
                             <li><a href="?p=profil"><i class="fas fa-user"></i> Akun Saya</a></li>
                             <li><a href="?p=setting"><i class="fas fa-cog"></i> Pengaturan Aplikasi</a></li>
                             <li><a href="?p=anggaran"><i class="fas fa-money-bill"></i> Anggaran</a></li>
-                            <li><a href="proses/logout.php"><i class="fas fa-power-off"></i> Logout</a></li>
+                            <li><a href="?p=logout"><i class="fas fa-power-off"></i> Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -334,6 +334,10 @@ if ($level === "su") {
         </section>
 
         <div class="inner-wrapper">
+            <!-- start: sidebar -->
+            <?php include("global/leftnav-su.php"); ?>
+            <!-- end: sidebar -->
+
             <main role="main" class="content-body">
                 <?php include("global/content.php"); ?>
             </main>

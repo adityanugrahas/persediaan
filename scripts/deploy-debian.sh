@@ -78,6 +78,10 @@ npm run db:init
 echo "⚡ Building and Starting Production Clusters..."
 npm run production
 
+# Wait for containers to stabilize
+echo "⏳ Waiting for containers to stabilize (10s)..."
+sleep 10
+
 # 8. Host-Level Nginx Reverse Proxy Setup
 echo "🌐 Configuring Comprehensive Nginx Reverse Proxy (Port 80 -> 8080)..."
 cat > /etc/nginx/sites-available/persediaan <<EOF
@@ -110,9 +114,22 @@ if command -v ufw &> /dev/null; then
     echo "✅ Port 80 and 8080 opened."
 fi
 
+# 10. Connectivity Check
+echo "🔍 Validating System Connectivity..."
+HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080 || echo "FAIL")
+
+if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "302" ]; then
+    echo "✅ Upstream (Docker) is RESPONDING correctly."
+else
+    echo "⚠️ Warning: Upstream is returning HTTP $HTTP_CODE. Checking logs..."
+    docker compose logs --tail=20
+fi
+
 echo "============================================================================"
-echo "🎉 COMPREHENSIVE DEPLOYMENT SUCCESSFUL!"
+echo "🎉 COMPREHENSIVE DEPLOYMENT FINISHED!"
 echo "============================================================================"
-echo "System is live at: http://$(curl -s ifconfig.me)"
-echo "Admin Access: admin / admin"
+echo "Main URL: http://$(curl -s ifconfig.me)"
+echo "Admin: admin / admin"
+echo "----------------------------------------------------------------------------"
+echo "If you still see 404, check: journalctl -u nginx --no-pager | tail -n 20"
 echo "============================================================================"

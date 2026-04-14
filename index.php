@@ -48,25 +48,34 @@ if (!$set) {
     <script src="vendor/modernizr/modernizr.js"></script>
 </head>
 <body>
+    <!-- Background Decorative Elements -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
     <main class="body-sign">
         <div class="center-sign">
-            <!-- Animated Logo -->
-            <header class="logo text-center mb-4" style="animation: fadeInDown 0.6s ease-out;">
+            <!-- Animated Logo & Header -->
+            <header class="logo text-center mb-5" style="animation: fadeInDown 1s var(--transition-smooth);">
                 <a href="/">
-                    <img src="img/<?= htmlspecialchars($set['logo_header']) ?>" alt="Logo <?= htmlspecialchars($set['nama_kantor']) ?>" style="max-height: 80px;" />
+                    <img src="img/<?= htmlspecialchars($set['logo_header']) ?>" alt="Logo" style="max-height: 80px; filter: drop-shadow(0 0 15px var(--primary-glow));" />
                 </a>
-                <p class="mt-2" style="color: var(--text-muted); font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase;">
-                    Sistem Manajemen Persediaan
+                <h1 class="mt-4" style="color: #fff; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 0.2rem;">
+                    <?= htmlspecialchars($set['nama_kantor']) ?>
+                </h1>
+                <p style="color: var(--text-muted); font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 600;">
+                    Inventory Intelligence System
                 </p>
             </header>
 
-            <article class="card card-sign" style="animation: fadeInUp 0.6s ease-out;">
-                <header class="card-title-sign mt-3 text-right">
-                    <h1 class="title text-uppercase font-weight-bold m-0">
-                        <i class="fas fa-shield-alt mr-2"></i>Sign In
-                    </h1>
+            <article class="card card-sign" style="animation: fadeInUp 1s var(--transition-smooth); border-radius: var(--radius-lg) !important; border: 1px solid var(--glass-border-bright) !important;">
+                <header class="card-title-sign mt-4 text-center">
+                    <div style="background: var(--glass-medium); padding: 10px 24px; border-radius: 30px; display: inline-flex; align-items:center; border: 1px solid var(--glass-border);">
+                        <i class="fas fa-shield-alt mr-2 text-primary"></i>
+                        <span style="font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; color: #fff;">SECURE GATEWAY</span>
+                    </div>
                 </header>
-                <div class="card-body">
+                <div class="card-body p-5">
                     <form action="proses/login.php" method="post" autocomplete="off">
                         <?php
                         $stmt_petugas = $bp->query("SELECT users_id FROM petugas LIMIT 1");
@@ -76,87 +85,76 @@ if (!$set) {
                             $msg = $_GET['pesan'] ?? '';
                             $add = $_GET['add'] ?? '';
                         ?>
-                            <div class="alert <?php
-                                if ($msg === 'gagal') echo 'alert-danger';
-                                elseif ($msg === 'logout') echo 'alert-warning';
-                                elseif ($add === 'ok') echo 'alert-success';
-                                elseif ($add === 'fail') echo 'alert-danger';
-                                else echo 'alert-info';
-                            ?> py-2 mb-4" style="animation: fadeIn 0.8s ease-out;">
-                                <i class="fas <?php
-                                    if ($msg === 'gagal') echo 'fa-exclamation-triangle';
-                                    elseif ($msg === 'logout') echo 'fa-sign-out-alt';
-                                    elseif ($add === 'ok') echo 'fa-check-circle';
-                                    elseif ($add === 'fail') echo 'fa-times-circle';
-                                    else echo 'fa-hand-peace';
-                                ?> mr-1"></i>
-                                <?php
-                                if ($add === 'ok') echo "<strong>Sukses!</strong> Akun Admin berhasil dibuat.";
-                                elseif ($add === 'fail') echo "<strong>Gagal!</strong> Pembuatan Admin gagal.";
-                                elseif ($msg === 'gagal') echo "<strong>Login Gagal!</strong> Periksa User ID dan Password.";
-                                elseif ($msg === 'logout') echo "<strong>Sesi Berakhir.</strong> Anda telah keluar.";
-                                else echo "<strong>Halo!</strong> Silahkan login ke akun anda.";
-                                ?>
+                            <?php if($msg || $add): ?>
+                            <div class="alert badge-info py-3 mb-4 text-center" style="border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2);">
+                                <small style="font-weight: 600; color:#fff; text-transform: uppercase; letter-spacing: 0.05em;">
+                                    <?php
+                                    if ($add === 'ok') echo "Administrator Profile Created";
+                                    elseif ($add === 'fail') echo "Database Integration Error";
+                                    elseif ($msg === 'gagal') echo "Invalid Signature or Key";
+                                    elseif ($msg === 'logout') echo "Security Session Terminated";
+                                    else echo "Authentication Required";
+                                    ?>
+                                </small>
                             </div>
+                            <?php endif; ?>
 
                             <div class="form-group mb-4">
-                                <label for="user_id"><i class="fas fa-id-badge mr-1"></i> User ID / NIP</label>
-                                <div class="input-group">
-                                    <input name="user_id" id="user_id" type="text" class="form-control" placeholder="Masukkan User ID" required autofocus />
+                                <label class="text-muted small font-weight-bold mb-3 text-uppercase" style="letter-spacing: 0.1em; opacity: 0.8; display: block;">Authorized Identity</label>
+                                <div class="input-group input-group-lg">
+                                    <input name="user_id" id="user_id" type="text" class="form-control" placeholder="User ID" required autofocus />
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-5">
+                                <label class="text-muted small font-weight-bold mb-3 text-uppercase" style="letter-spacing: 0.1em; opacity: 0.8; display: block;">Security Access Key</label>
+                                <div class="input-group input-group-lg">
+                                    <input name="pwd" id="pwd" type="password" class="form-control" placeholder="········" required />
                                     <span class="input-group-append">
-                                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                        <button class="input-group-text" type="button" onclick="togglePwd()" id="eye-btn"><i class="fa fa-eye-slash" id="eye-icon" style="opacity:0.6;"></i></button>
                                     </span>
                                 </div>
                             </div>
 
-                            <div class="form-group mb-4">
-                                <label for="pwd"><i class="fas fa-key mr-1"></i> Password</label>
-                                <div class="input-group">
-                                    <input name="pwd" id="pwd" type="password" class="form-control" placeholder="Masukkan Password" required />
-                                    <span class="input-group-append">
-                                        <span class="input-group-text" style="cursor:pointer;" onclick="togglePwd()" id="eye-btn"><i class="fa fa-eye-slash" id="eye-icon"></i></span>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary btn-block btn-lg mt-3">
-                                <i class="fas fa-sign-in-alt mr-2"></i>Masuk
+                            <button type="submit" class="btn btn-primary btn-block btn-lg" style="height: 60px; font-weight: 700; font-size: 1rem;">
+                                <i class="fas fa-sign-in-alt mr-2"></i> AUTHORIZE SESSION
                             </button>
 
                         <?php else: ?>
-                            <div class="alert alert-warning mb-4">
-                                <i class="fas fa-user-plus mr-1"></i>
-                                <strong>Setup Diperlukan!</strong> Akun Administrator belum tersedia. Silahkan buat akun utama.
+                            <div class="alert alert-warning mb-4" style="border-radius: 12px; background: rgba(245, 158, 11, 0.1); border: 1px solid var(--warning);">
+                                <i class="fas fa-rocket mr-2"></i>
+                                <span style="font-weight: 600;">System Initialization Required.</span> Create your root administrator profile.
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="nama"><i class="fas fa-user mr-1"></i> Nama Lengkap</label>
-                                <input name="nama" id="nama" type="text" class="form-control" placeholder="Nama lengkap admin" required />
+                                <input name="nama" type="text" class="form-control" placeholder="Full Administrative Name" required />
                             </div>
                             <div class="form-group mb-3">
-                                <label for="user_id"><i class="fas fa-id-badge mr-1"></i> User ID Baru</label>
-                                <input name="user_id" id="user_id" type="text" class="form-control" placeholder="ID untuk login" required />
+                                <input name="user_id" type="text" class="form-control" placeholder="Root Username" required />
                             </div>
                             <div class="form-group mb-4">
-                                <label for="pwd"><i class="fas fa-key mr-1"></i> Password</label>
-                                <input name="pwd" id="pwd" type="password" class="form-control" placeholder="Password akun" required />
+                                <input name="pwd" type="password" class="form-control" placeholder="Root Security Key" required />
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-block btn-lg">
-                                <i class="fas fa-user-shield mr-2"></i>Buat Admin
+                                <i class="fas fa-cog mr-2"></i> INITIALIZE SYSTEM
                             </button>
                         <?php endif; ?>
                     </form>
                 </div>
             </article>
 
-            <footer class="text-center mt-4 mb-3" style="animation: fadeIn 1s ease-out;">
-                <p style="color: var(--text-muted); font-size: 0.78rem;">
-                    &copy; <?= date("Y") ?> <?= htmlspecialchars($set['nama_kantor']) ?>
+            <footer class="text-center mt-4">
+                <p style="color: var(--text-muted); font-size: 0.8rem; font-weight: 500;">
+                    &copy; <?= date("Y") ?> <span style="color: #fff;"><?= htmlspecialchars($set['nama_kantor']) ?></span>
                 </p>
+                <div class="mt-2">
+                    <span class="badge badge-info" style="opacity: 0.5;">v2.0 Glassmorphism Edition</span>
+                </div>
             </footer>
         </div>
     </main>
+
 
     <!-- Vendor Scripts -->
     <script src="vendor/jquery/jquery.js"></script>

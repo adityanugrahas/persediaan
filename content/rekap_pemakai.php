@@ -49,7 +49,7 @@ foreach ($bagians as $data):
 <?php
     for ($b = 1; $b <= 12; $b++):
         $bstr = str_pad($b, 2, '0', STR_PAD_LEFT);
-        $jb = (int)db_fetch_column($bp, "SELECT COUNT(*) FROM stok_inout WHERE id_seksi = :seksi AND jenis = 'out' AND status = '2' AND tgl_ok::text LIKE :period",
+        $jb = (int)db_fetch_column($bp, "SELECT COUNT(*) FROM stok_inout WHERE id_seksi = :seksi AND jenis = 'out' AND status = '2' AND tgl_ok LIKE :period",
                                    ['seksi' => $data['id_seksi'], 'period' => $periode . '-' . $bstr . '%']);
         $jum += $jb;
         

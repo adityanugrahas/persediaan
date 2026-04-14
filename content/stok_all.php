@@ -6,7 +6,7 @@ $sql = "SELECT * FROM stok_barang WHERE aktif = 'ya'";
 
 if (!empty($k)) {
     $header = $k;
-    $sql .= " AND (nama_barang ILIKE :search OR keterangan ILIKE :search)";
+    $sql .= " AND (nama_barang LIKE :search OR keterangan LIKE :search)";
     $params['search'] = '%' . $k . '%';
 }
 
@@ -49,54 +49,39 @@ foreach ($items as $br):
     $kategori = !empty($kat_row['nama_kat']) ? $kat_row['nama_kat'] : "Edit Kategori";
     $warnakt = !empty($kat_row['nama_kat']) ? "default" : "dark";
 ?>
-                        <tr>
-                            <td><?= $i ?></td>
-                            <td>
-                            <figure class='profile-picture'>
-                            <img src='img/barang/<?= htmlspecialchars($barang) ?>' height='50' alt='<?= htmlspecialchars($br['nama_barang']) ?>' class='rounded-circle' />
-                            </figure>
-                            </td>
-                            <td>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                <a class="btn btn-<?= $warnakt ?>" href="#" data-toggle="dropdown"><?= htmlspecialchars($kategori) ?></a>
-                                    <button tabindex="-1" data-toggle="dropdown" class="btn btn-xs btn-warning dropdown-toggle" type="button">
-                                        <span class="caret"></span>
-                                    </button>
-                                    <?php if ($_SESSION["levelp"] === "su"): ?>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                    <?php
-                                    $kats = db_fetch_all($bp, "SELECT * FROM kategori WHERE status = 'ON'");
-                                    foreach ($kats as $kt) {
-                                        echo "<a class='dropdown-item' href='?p=update&tab=katbr&id=" . htmlspecialchars($br['id_barang']) . "&kat_id=" . htmlspecialchars($kt['id_kat']) . "&pg=stok_all'>" . htmlspecialchars($kt['nama_kat']) . "</a>";
-                                    }
-                                    ?>
-                                    </div>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                            </td>
-                            <td><?= htmlspecialchars($br['nama_barang']) ?><br><span class='text-primary'><?= htmlspecialchars($br['keterangan']) ?></span></td>
-                            <td><?= $br['stok_minimal'] ?></td>
-                            <td><?= $br['jumlah_stok'] ?> <?= htmlspecialchars($br['satuan']) ?></td>
-                            <td>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                <a class="simple-ajax-modal btn btn-<?= $warna ?>" href="ajax/<?= $form ?>?id=<?= htmlspecialchars($br['id_barang']) ?>&k=<?= urlencode($k) ?>"><i class="fas fa-shopping-basket"></i> <?= $link ?></a>
-                                    <button tabindex="-1" data-toggle="dropdown" class="btn btn-xs btn-warning dropdown-toggle" type="button">
-                                        <span class="caret"></span><i class="fa fa-cog"></i>
-                                    </button>
-                                    <?php if ($_SESSION["levelp"] === "su"): ?>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="?p=stok_edit&id=<?= htmlspecialchars($br['id_barang']) ?>"><i class="fas fa-search"></i> Detail</a>
-                                    <a class="dropdown-item simple-ajax-modal" href="ajax/stok_delete.php?id=<?= htmlspecialchars($br['id_barang']) ?>"><i class="far fa-trash-alt"></i> Hapus</a>
-                                    <a class="dropdown-item simple-ajax-modal" href="ajax/stok_add.php?id=<?= htmlspecialchars($br['id_barang']) ?>"><i class="fas fa-plus"></i> Tambah Stok</a>
-                                    </div>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                            </td>
-                        </tr>
+    <td>
+        <div class="d-flex align-items-center">
+            <figure class='profile-picture mr-3 mb-0'>
+                <img src='img/barang/<?= htmlspecialchars($barang) ?>' height='45' width='45' alt='<?= htmlspecialchars($br['nama_barang']) ?>' class='rounded-circle' style="border: 2px solid var(--glass-border); padding: 2px;" />
+            </figure>
+            <div>
+                <span class="font-weight-bold text-white"><?= htmlspecialchars($br['nama_barang']) ?></span><br>
+                <small class="text-primary"><?= htmlspecialchars($br['keterangan']) ?></small>
+            </div>
+        </div>
+    </td>
+    <td><span class="badge badge-info"><?= $br['jumlah_stok'] ?> <?= htmlspecialchars($br['satuan']) ?></span></td>
+    <td><span class="badge badge-warning"><?= $br['stok_minimal'] ?></span></td>
+    <td class="text-right">
+        <div class="btn-group btn-group-sm">
+            <a class="simple-ajax-modal btn btn-<?= $warna ?>" href="ajax/<?= $form ?>?id=<?= htmlspecialchars($br['id_barang']) ?>&k=urlencode($k)">
+                <i class="fas fa-shopping-basket mr-1"></i> <?= $link ?>
+            </a>
+            <?php if ($_SESSION["levelp"] === "su"): ?>
+            <button type="button" class="btn btn-<?= $warna ?> dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="?p=stok_edit&id=<?= htmlspecialchars($br['id_barang']) ?>"><i class="fas fa-search-plus mr-2"></i> Detail Barang</a>
+                <a class="dropdown-item simple-ajax-modal" href="ajax/stok_add.php?id=<?= htmlspecialchars($br['id_barang']) ?>"><i class="fas fa-plus mr-2"></i> Increase Stock</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item simple-ajax-modal text-danger" href="ajax/stok_delete.php?id=<?= htmlspecialchars($br['id_barang']) ?>"><i class="far fa-trash-alt mr-2"></i> Delete Item</a>
+            </div>
+            <?php endif; ?>
+        </div>
+    </td>
+</tr>
+
 <?php $i++; endforeach; ?>                      
                     </tbody>
                 </table>

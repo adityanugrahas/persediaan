@@ -18,16 +18,16 @@ $jum_ps = (int)db_fetch_column($bp, "SELECT COUNT(*) FROM pesanan");
 							</a>
 						</li>
 						<li class="dropdown-submenu">
-							<a class="nav-link" href="">
-								<i class="fa fa-cube"></i> Kategori
+							<a class="nav-link dropdown-toggle" href="#">
+								<i class="fas fa-tags mr-1"></i> Kategori
 							</a>
 							<ul class="dropdown-menu">
 								<?php
 								$skat = db_fetch_all($bp, "SELECT * FROM kategori ORDER BY nama_kat");
 								if (count($skat) > 0) {
-									echo "<li><a class='nav-link' href='?p=stok_all'><i class='fa fa-cube'></i> Semua Kategori</a></li>";
+									echo "<li><a class='nav-link' href='?p=stok_all'><i class='fas fa-th-large'></i> Semua Kategori</a></li>";
 									foreach ($skat as $kat) {
-										echo "<li><a class='nav-link' href='?p=stok_kat&kat=" . htmlspecialchars($kat['id_kat']) . "'><i class='fa fa-cube'></i> " . htmlspecialchars($kat['nama_kat']) . "</a></li>";
+										echo "<li><a class='nav-link' href='?p=stok_kat&kat=" . htmlspecialchars($kat['id_kat']) . "'><i class='fas fa-tag'></i> " . htmlspecialchars($kat['nama_kat']) . "</a></li>";
 									}
 								}
 								?>

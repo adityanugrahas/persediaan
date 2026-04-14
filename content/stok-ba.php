@@ -5,7 +5,7 @@ $params = [];
 $sql = "SELECT * FROM stok_barang";
 
 if (!empty($kunci)) {
-    $sql .= " WHERE nama_barang ILIKE :kunci OR keterangan ILIKE :kunci";
+    $sql .= " WHERE nama_barang LIKE :kunci OR keterangan LIKE :kunci";
     $params['kunci'] = '%' . $kunci . '%';
 }
 

@@ -55,7 +55,7 @@ foreach ($items as $data):
 <?php
     for ($b = 1; $b <= 12; $b++):
         $bstr = str_pad($b, 2, '0', STR_PAD_LEFT);
-        $jbr = db_fetch($bp, "SELECT jml_stok FROM stok_inout WHERE id_barang = :id AND tgl_ok::text LIKE :period ORDER BY tgl_ok DESC LIMIT 1",
+        $jbr = db_fetch($bp, "SELECT jml_stok FROM stok_inout WHERE id_barang = :id AND tgl_ok LIKE :period ORDER BY tgl_ok DESC LIMIT 1",
                         ['id' => $data['id_barang'], 'period' => $periode . '-' . $bstr . '%']);
         
         if (!empty($jbr['jml_stok'])) {

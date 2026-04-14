@@ -5,7 +5,7 @@ $params = [];
 $sql = "SELECT * FROM stok_barang WHERE aktif='ya'";
 
 if (!empty($k)) {
-    $sql .= " AND (nama_barang ILIKE :k OR keterangan ILIKE :k)";
+    $sql .= " AND (nama_barang LIKE :k OR keterangan LIKE :k)";
     $params['k'] = '%' . $k . '%';
 }
 

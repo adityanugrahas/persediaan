@@ -34,7 +34,7 @@ $petugas_list = $stmt->fetchAll();
                             <th>User ID</th>
                             <th>Seksi / Bagian</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,20 +48,20 @@ $petugas_list = $stmt->fetchAll();
                             <td><?= $i ?></td>
                             <td>
                                 <figure class='profile-picture'>
-                                    <img src='img/users/<?= htmlspecialchars($photo) ?>' height='40' class='rounded-circle' />
+                                    <img src='img/users/<?= htmlspecialchars($photo) ?>' height='40' class='rounded-circle shadow-sm' />
                                 </figure>
                             </td>
                             <td><?= htmlspecialchars($data['nama']) ?></td>
-                            <td><?= htmlspecialchars($data['users_id']) ?></td>
+                            <td><span class="badge badge-primary"><?= htmlspecialchars($data['users_id']) ?></span></td>
                             <td><?= htmlspecialchars($data['bagian']) ?></td>
-                            <td><?= htmlspecialchars($data['p_status']) ?></td>
+                            <td><span class="badge <?= $data['p_status'] == 'aktif' ? 'badge-success' : 'badge-danger' ?>"><?= htmlspecialchars($data['p_status']) ?></span></td>
                             <td class="actions">
                                 <div class='btn-group'>
-                                    <a class='simple-ajax-modal btn btn-sm btn-primary' href='ajax/editpeg.php?d=petugas&id=<?= $data['id_petugas'] ?>'>
-                                        <i class='fa fa-edit'></i> Edit
+                                    <a class='simple-ajax-modal btn btn-xs btn-primary mr-1' href='ajax/editpeg.php?d=petugas&id=<?= $data['id_petugas'] ?>'>
+                                        <i class='fas fa-edit'></i> Edit
                                     </a>
-                                    <a class='simple-ajax-modal btn btn-sm btn-danger' href='ajax/delete.php?d=petugas&id=<?= $data['id_petugas'] ?>'>
-                                        <i class='fa fa-trash'></i> Hapus
+                                    <a class='simple-ajax-modal btn btn-xs btn-danger' href='ajax/delete.php?d=petugas&id=<?= $data['id_petugas'] ?>'>
+                                        <i class='fas fa-trash'></i>
                                     </a>
                                 </div>
                             </td>

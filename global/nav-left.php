@@ -13,9 +13,9 @@
             <nav id="menu" class="nav-main" role="navigation">
                 <ul class="nav nav-main">
                     <li class="nav-active">
-                        <a href="admin.php">
-                            <i class="fa fa-home" aria-hidden="true"></i>
-                            <span>Dashboard</span>
+                        <a href="index.php">
+                            <i class="fas fa-home" aria-hidden="true"></i>
+                            <span>DASHBOARD</span>
                         </a>
                     </li>
                     <li>
@@ -65,7 +65,7 @@
                     COUNT(antrian_no) as jumlah,
                     COUNT(CASE WHEN antrian_status = 'selesai' THEN 1 END) as selesai 
                     FROM no_antrian 
-                    WHERE antrian_datang::text LIKE :today", ['today' => $today_date . '%']);
+                    WHERE antrian_datang LIKE :today", ['today' => $today_date . '%']);
                 
                 $jumlah = $q_antri['jumlah'] ?? 0;
                 $selesai = $q_antri['selesai'] ?? 0;

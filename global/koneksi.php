@@ -1,23 +1,47 @@
 <?php
 /**
  * Database Connection & Global Helpers
- * PostgreSQL via PDO — Persediaan System
+ * SQLite via PDO — Persediaan System (Production Stage)
  */
 
-// Database configuration for PostgreSQL
-$host     = "localhost";
-$port     = "5432";
-$db_name  = "baperkrw";
-$db_user  = "postgres";
-$db_pass  = ""; // Update with your password
+// Production Stage Settings
+$is_production = true; // Toggle as needed
+
+if ($is_production) {
+    error_reporting(0);
+    ini_set('display_errors', 0);
+    ini_set('log_errors', 1);
+    ini_set('error_log', __DIR__ . '/../logs/php_errors.log');
+    
+    // Security Headers
+    header("X-Frame-Options: SAMEORIGIN");
+    header("X-Content-Type-Options: nosniff");
+    header("X-XSS-Protection: 1; mode=block");
+    header("Referrer-Policy: strict-origin-when-cross-origin");
+} else {
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+}
+
+// Database configuration — SQLite for local development
+$db_path = __DIR__ . '/../database.sqlite';
 
 try {
-    $dsn = "pgsql:host=$host;port=$port;dbname=$db_name";
-    $bp = new PDO($dsn, $db_user, $db_pass, [
+    $dsn = "sqlite:" . $db_path;
+    $bp = new PDO($dsn, null, null, [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ]);
+    // Enable WAL mode for better concurrency
+    $bp->exec("PRAGMA journal_mode=WAL");
+    $bp->exec("PRAGMA foreign_keys=ON");
+
+    // Auto-initialize on first run
+    if (filesize($db_path) === 0 || !$bp->query("SELECT name FROM sqlite_master WHERE type='table' AND name='setting'")->fetch()) {
+        $schema = file_get_contents(__DIR__ . '/../schema_sqlite.sql');
+        $bp->exec($schema);
+    }
 } catch (PDOException $e) {
     die("Koneksi database gagal: " . $e->getMessage());
 }

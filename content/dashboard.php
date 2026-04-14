@@ -17,16 +17,18 @@ $recent_requests = $stmt_recent->fetchAll();
 <div class="row">
     <!-- Stats Cards -->
     <div class="col-xl-3 col-md-6 mb-4">
-        <section class="card card-featured-left card-featured-primary">
+        <section class="card">
             <div class="card-body">
                 <div class="widget-summary">
                     <div class="widget-summary-col widget-summary-col-icon">
-                        <div class="summary-icon bg-primary"><i class="fas fa-boxes"></i></div>
+                        <div class="summary-icon">
+                            <i class="fas fa-boxes text-primary"></i>
+                        </div>
                     </div>
                     <div class="widget-summary-col">
                         <div class="summary">
                             <h4 class="title">Total Barang</h4>
-                            <div class="info"><strong class="amount"><?= $total_items ?></strong></div>
+                            <div class="info"><strong class="amount"><?= number_format($total_items) ?></strong></div>
                         </div>
                     </div>
                 </div>
@@ -34,16 +36,18 @@ $recent_requests = $stmt_recent->fetchAll();
         </section>
     </div>
     <div class="col-xl-3 col-md-6 mb-4">
-        <section class="card card-featured-left card-featured-secondary">
+        <section class="card">
             <div class="card-body">
                 <div class="widget-summary">
                     <div class="widget-summary-col widget-summary-col-icon">
-                        <div class="summary-icon bg-secondary"><i class="fas fa-sitemap"></i></div>
+                        <div class="summary-icon">
+                            <i class="fas fa-sitemap text-info"></i>
+                        </div>
                     </div>
                     <div class="widget-summary-col">
                         <div class="summary">
                             <h4 class="title">Total Bidang</h4>
-                            <div class="info"><strong class="amount"><?= $total_sections ?></strong></div>
+                            <div class="info"><strong class="amount"><?= number_format($total_sections) ?></strong></div>
                         </div>
                     </div>
                 </div>
@@ -51,16 +55,18 @@ $recent_requests = $stmt_recent->fetchAll();
         </section>
     </div>
     <div class="col-xl-3 col-md-6 mb-4">
-        <section class="card card-featured-left card-featured-tertiary">
+        <section class="card">
             <div class="card-body">
                 <div class="widget-summary">
                     <div class="widget-summary-col widget-summary-col-icon">
-                        <div class="summary-icon bg-tertiary"><i class="fas fa-clock"></i></div>
+                        <div class="summary-icon">
+                            <i class="fas fa-clock text-warning"></i>
+                        </div>
                     </div>
                     <div class="widget-summary-col">
                         <div class="summary">
                             <h4 class="title">Pending Request</h4>
-                            <div class="info"><strong class="amount"><?= $total_pending ?></strong></div>
+                            <div class="info"><strong class="amount"><?= number_format($total_pending) ?></strong></div>
                         </div>
                     </div>
                 </div>
@@ -68,16 +74,18 @@ $recent_requests = $stmt_recent->fetchAll();
         </section>
     </div>
     <div class="col-xl-3 col-md-6 mb-4">
-        <section class="card card-featured-left card-featured-quaternary">
+        <section class="card">
             <div class="card-body">
                 <div class="widget-summary">
                     <div class="widget-summary-col widget-summary-col-icon">
-                        <div class="summary-icon bg-quaternary"><i class="fas fa-users"></i></div>
+                        <div class="summary-icon">
+                            <i class="fas fa-users text-success"></i>
+                        </div>
                     </div>
                     <div class="widget-summary-col">
                         <div class="summary">
                             <h4 class="title">Total Petugas</h4>
-                            <div class="info"><strong class="amount"><?= $total_users ?></strong></div>
+                            <div class="info"><strong class="amount"><?= number_format($total_users) ?></strong></div>
                         </div>
                     </div>
                 </div>
@@ -85,6 +93,7 @@ $recent_requests = $stmt_recent->fetchAll();
         </section>
     </div>
 </div>
+
 
 <div class="row">
     <div class="col-lg-8">

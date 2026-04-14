@@ -1,0 +1,25 @@
+{
+  "name": "persediaan-inventory",
+  "version": "2.0.0",
+  "description": "Premium Glassmorphism Inventory & Asset Management System",
+  "main": "index.php",
+  "scripts": {
+    "dev": "php -S localhost:8080",
+    "docker:up": "docker-compose up -d --build",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "docker:rebuild": "docker-compose up -d --build --force-recreate",
+    "db:init": "php -r \"require 'global/koneksi.php';\"",
+    "clean": "rm -rf logs/*.log",
+    "production": "npm run docker:up"
+  },
+  "keywords": [
+    "inventory",
+    "glassmorphism",
+    "php",
+    "pdo",
+    "asset-management"
+  ],
+  "author": "Persediaan Team",
+  "license": "MIT"
+}

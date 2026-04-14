@@ -28,7 +28,7 @@ $nm_brg = htmlspecialchars($_REQUEST["nm_brg"] ?? '');
             </form>
         </div>
     <?php
-$rows = db_fetch_all($bp, "SELECT * FROM stok_inout WHERE status = '2' AND id_barang = :id AND tgl_ok::text LIKE :periode ORDER BY tgl ASC",
+$rows = db_fetch_all($bp, "SELECT * FROM stok_inout WHERE status = '2' AND id_barang = :id AND tgl_ok LIKE :periode ORDER BY tgl ASC",
                      ['id' => $id_barang, 'periode' => $periode . '%']);
 $jum = count($rows);
 if ($jum > 0):

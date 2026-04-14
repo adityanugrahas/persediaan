@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: persediaan-app
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    volumes:
+      - ./:/var/www/html
+      - ./database.sqlite:/var/www/html/database.sqlite
+    networks:
+      - persediaan-network
+
+  # Nginx Service
+  web:
+    image: nginx:alpine
+    container_name: persediaan-web
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - persediaan-network
+
+# Docker Networks
+networks:
+  persediaan-network:
+    driver: bridge

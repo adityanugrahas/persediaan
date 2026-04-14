@@ -5,7 +5,7 @@ $params = [];
 if (!empty($_GET["k"])) {
     $k = $_GET["k"];
     $header = htmlspecialchars($k);
-    $query .= " AND (nama_barang ILIKE :k OR keterangan ILIKE :k)";
+    $query .= " AND (nama_barang LIKE :k OR keterangan LIKE :k)";
     $params['k'] = "%$k%";
 } else {
     $header = "Stok Barang";

@@ -75,7 +75,7 @@ if (!empty($bag)) {
     $params['bag'] = $bag;
 }
 
-$sql .= " AND tgl::text LIKE :periode ORDER BY status, tgl DESC";
+$sql .= " AND tgl LIKE :periode ORDER BY status, tgl DESC";
 $params['periode'] = $periode . '%';
 
 $rows = db_fetch_all($bp, $sql, $params);

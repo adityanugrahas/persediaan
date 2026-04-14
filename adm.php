@@ -398,7 +398,7 @@ foreach($re_items as $re)
 				<!-- end: sidebar -->
 
 				<section role="main" class="content-body">
-					<header class="page-header" style="background-color:#424140;">
+					<header class="page-header">
 						<h2><?php include("global/header.php");?>	</h2>
 					
 						<div class="right-wrapper text-right">					

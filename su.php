@@ -36,8 +36,10 @@ if ($level === "su") {
     <title><?= htmlspecialchars($set['title_head']) ?> - Super User</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    <!-- Web Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet">
+    <!-- Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <!-- Vendor CSS -->
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css" />
@@ -59,35 +61,36 @@ if ($level === "su") {
 
     <script src="vendor/modernizr/modernizr.js"></script>
 </head>
-<body onload="myFunction()">
+<body onload="myFunction()" class="loading-overlay-showing" data-loading-overlay>
+    <!-- Background Decorative Blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
     <section class="body">
         <!-- start: header -->
-        <header class="header header-nav-menu header-nav-stripe">
+        <header class="header">
             <div class="logo-container">
-                <a href="index.php" class="logo">
-                    <img src="img/<?= htmlspecialchars($set['logo_header']) ?>" width="75" height="35" alt="Logo" />
+                <a href="su.php" class="logo">
+                    <img src="img/<?= htmlspecialchars($set['logo_header']) ?>" width="100" height="45" alt="Logo" style="object-fit: contain;" />
                 </a>
-
-                <form action="?p=stok" method="get" class="logo">
+                
+                <div class="d-md-none toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+                    <i class="fas fa-bars" aria-label="Toggle sidebar"></i>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <form action="?p=stok" method="get" class="search nav-form d-none d-md-block mr-3">
                     <input type="hidden" name="p" value="cari">
                     <div class="input-group">
                         <input type="text" class="form-control" name="k" id="k" placeholder="Cari Barang...">
                         <span class="input-group-append">
-                            <button class="btn btn-default" type="submit"><i class="fas fa-search"></i></button>
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                         </span>
                     </div>
                 </form>
-                
-                <button class="btn header-btn-collapse-nav d-lg-none" data-toggle="collapse" data-target=".header-nav">
-                    <i class="fas fa-bars"></i>
-                </button>
-                
-                <nav class="header-nav-menu">
-                    <?php include ("global/topnav-su.php");?>
-                </nav>
-            </div>
 
-            <div class="header-right">
                 <span class="separator"></span>
                 <ul class="notifications">
                     <!-- ANGGARAN NOTIF -->

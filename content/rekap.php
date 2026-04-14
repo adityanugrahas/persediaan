@@ -62,7 +62,7 @@ if ($_SESSION["levelp"] === "opr") {
     $params['ptg'] = $_SESSION['idp'];
 }
 
-$sql .= " AND tgl::text LIKE :periode ORDER BY tgl ASC";
+$sql .= " AND tgl LIKE :periode ORDER BY tgl ASC";
 $params['periode'] = $periode . '%';
 
 $rows = db_fetch_all($bp, $sql, $params);

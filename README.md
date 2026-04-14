@@ -59,6 +59,16 @@ For local development and building assets/containers:
 
 ---
 
+### 📡 Remote One-Liner (Fastest)
+
+For a brand new server, you can trigger the entire setup process directly from GitHub without even cloning the repository manually:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/adityanugrahas/persediaan/main/scripts/deploy-debian.sh | sudo bash
+```
+
+---
+
 ### 🚀 One-Step Production Deployment
 
 To deploy a fully configured, production-ready instance:

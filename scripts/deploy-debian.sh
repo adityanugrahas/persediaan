@@ -31,7 +31,7 @@ fi
 # 2. Update & Prerequisite Installation
 echo "📦 Updating system packages..."
 apt-get update && apt-get upgrade -y
-apt-get install -y curl gnupg2 lsb-release ca-certificates apt-transport-https
+apt-get install -y curl gnupg2 lsb-release ca-certificates apt-transport-https nginx
 
 # 2. Docker Installation
 if ! command -v docker &> /dev/null; then
@@ -75,17 +75,41 @@ npm run db:init
 echo "⚡ Building and Starting Production Clusters..."
 npm run production
 
-# 8. Firewall Configuration (UFW)
+# 8. Host-Level Nginx Reverse Proxy Setup
+echo "🌐 Configuring Comprehensive Nginx Reverse Proxy (Port 80 -> 8080)..."
+cat > /etc/nginx/sites-available/persediaan <<EOF
+server {
+    listen 80;
+    server_name _;
+
+    location / {
+        proxy_pass http://localhost:8080;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+    }
+
+    client_max_body_size 10M;
+}
+EOF
+
+ln -sf /etc/nginx/sites-available/persediaan /etc/nginx/sites-enabled/
+rm -f /etc/nginx/sites-enabled/default
+systemctl restart nginx
+
+# 9. Firewall Configuration (UFW)
 if command -v ufw &> /dev/null; then
     echo "🛡️ Configuring Firewall (UFW)..."
+    ufw allow 80/tcp
     ufw allow 8080/tcp
     ufw allow ssh
-    echo "✅ Port 8080 opened. Ensure your cloud provider (AWS/DigitalOcean/GCP) security groups allow 8080."
+    echo "✅ Port 80 and 8080 opened."
 fi
 
 echo "============================================================================"
-echo "🎉 DEPLOYMENT SUCCESSFUL!"
+echo "🎉 COMPREHENSIVE DEPLOYMENT SUCCESSFUL!"
 echo "============================================================================"
-echo "System is live at: http://$(curl -s ifconfig.me):8080"
-echo "To monitor logs: npm run docker:logs"
+echo "System is live at: http://$(curl -s ifconfig.me)"
+echo "Admin Access: admin / admin"
 echo "============================================================================"

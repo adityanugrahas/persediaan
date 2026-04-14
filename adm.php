@@ -23,6 +23,7 @@ $set = $stmt_set->fetch();
 		<title><?php echo"$set[title_head]";?></title>
 		<meta name="keywords" content="<?php echo"$set[nama_kantor]";?>" />
 		<meta name="description" content="<?php echo"$set[nama_kantor]";?>">
+		<meta name="theme-color" content="#0a0e1a">
 		<meta name="<?php echo"$set[nama_kantor]";?>" content="<?php echo"$set[nama_kantor]";?>">
 
 		<!-- Mobile Metas -->
@@ -74,6 +75,11 @@ $set = $stmt_set->fetch();
 
 	</head>
 	<body>
+		<!-- Background Decorative Elements -->
+		<div class="blob blob-1"></div>
+		<div class="blob blob-2"></div>
+		<div class="blob blob-3"></div>
+
 		<section class="body">
 
 			<!-- start: header -->

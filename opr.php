@@ -56,6 +56,11 @@ if (($_SESSION["statep"] ?? '') === "login" && $level === "opr") {
     <script src="vendor/modernizr/modernizr.js"></script>
 </head>
 <body>
+    <!-- Background Decorative Elements -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
     <section class="body">
         <!-- start: header -->
         <header class="header header-nav-menu header-nav-stripe">

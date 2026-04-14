@@ -19,13 +19,16 @@ echo "🚀 Starting Comprehensive Deployment for Persediaan System..."
 REPO_URL="https://github.com/adityanugrahas/persediaan.git"
 TARGET_DIR="/var/www/persediaan"
 
-if [ ! -d ".git" ]; then
+if [ ! -d "/var/www/persediaan/.git" ]; then
     echo "📡 Cloning repository from $REPO_URL..."
     apt-get update && apt-get install -y git
+    mkdir -p /var/www
     git clone $REPO_URL $TARGET_DIR
     cd $TARGET_DIR
 else
-    echo "✅ Running from inside a localized repository."
+    echo "♻️ Repository already exists. Pulling latest updates..."
+    cd $TARGET_DIR
+    git pull origin main
 fi
 
 # 2. Update & Prerequisite Installation

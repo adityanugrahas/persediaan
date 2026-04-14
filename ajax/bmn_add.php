@@ -19,96 +19,96 @@ $selected_kat_name = $kat_data["nama_kat"] ?? "-- Pilih Kategori --";
     <section class="card">
         <header class="card-header">
             <div class="card-actions">
-                <button class='btn btn-dark btn-sm modal-dismiss'>X</button>
+                <button class='btn btn-dark btn-sm modal-dismiss'><i class="fa fa-times"></i></button>
             </div>
-            <h2 class="card-title">Form Tambah Data BMN</h2>
+            <h2 class="card-title"><i class="fa fa-plus-circle mr-2"></i> Tambah Data BMN</h2>
+            <p class="mb-0 text-muted small">Input aset/barang milik negara baru ke dalam sistem</p>
         </header>
         <div class="card-body">
             <form id='add_bmn_form' method='post' action='?p=proadd&tab=bmn' enctype='multipart/form-data' class='form-horizontal'>
                 <input type="hidden" name="editor" value="<?= htmlspecialchars($_SESSION['idp']) ?>" />	
                 
-                <div class="form-group row">
-                    <label class="col-lg-3 control-label text-lg-right pt-2">Kategori</label>
-                    <div class="col-lg-6">
-                        <select name='kat_bmn' class='form-control' required>		
-                            <option value="<?= htmlspecialchars($selected_kat_id) ?>"><?= htmlspecialchars($selected_kat_name) ?></option>
-                            <?php
-                            $kats = db_fetch_all($bp, "SELECT id_kat, nama_kat FROM kat_bmn WHERE status = 'ON' ORDER BY nama_kat ASC");
-                            foreach ($kats as $kat) {
-                                if ($kat['id_kat'] != $selected_kat_id) {
-                                    echo "<option value='" . htmlspecialchars($kat['id_kat']) . "'>" . htmlspecialchars($kat['nama_kat']) . "</option>";
+                <div class="form-group row mb-4">
+                    <label class="col-lg-3 control-label text-white font-weight-semibold">Kategori</label>
+                    <div class="col-lg-9">
+                        <div class="input-group">
+                            <select name='kat_bmn' class='form-control' required>		
+                                <option value="<?= htmlspecialchars($selected_kat_id) ?>"><?= htmlspecialchars($selected_kat_name) ?></option>
+                                <?php
+                                $kats = db_fetch_all($bp, "SELECT id_kat, nama_kat FROM kat_bmn WHERE status = 'ON' ORDER BY nama_kat ASC");
+                                foreach ($kats as $kat) {
+                                    if ($kat['id_kat'] != $selected_kat_id) {
+                                        echo "<option value='" . htmlspecialchars($kat['id_kat']) . "'>" . htmlspecialchars($kat['nama_kat']) . "</option>";
+                                    }
                                 }
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div class='col-lg-3 pt-1'>
-                        <a href='ajax/bmn_kat_add.php' class='simple-ajax-modal btn btn-xs btn-success'><i class="fa fa-plus"></i> Baru</a>
+                                ?>
+                            </select>
+                            <span class="input-group-append">
+                                <a href='ajax/bmn_kat_add.php' class='simple-ajax-modal btn btn-success'><i class="fa fa-plus"></i></a>
+                            </span>
+                        </div>
                     </div>
                 </div>											  
                 
-                <div class="form-group row">
-                    <label class="col-sm-3 control-label text-lg-right pt-2">Kode Barang</label>
-                    <div class="col-sm-9">
+                <div class="form-group row mb-4">
+                    <label class="col-sm-3 control-label text-white font-weight-semibold">Identifikasi</label>
+                    <div class="col-sm-4">
                         <input type="text" class="form-control" name="kode" placeholder="Kode BMN / NUP">
+                        <small class="text-muted">Kode / NUP</small>
                     </div>
-                </div>
-                
-                <div class="form-group row">
-                    <label class="col-sm-3 control-label text-lg-right pt-2">Nama Barang</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-5">
                         <input type="text" class="form-control" name="nama_barang" required placeholder="Nama lengkap barang">
+                        <small class="text-muted">Nama Barang</small>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-3 control-label text-lg-right pt-2">Jumlah & Satuan</label>
+                <div class="form-group row mb-4">
+                    <label class="col-sm-3 control-label text-white font-weight-semibold">Kuantitas</label>
                     <div class="col-sm-4">
                         <input type="number" min='1' class="form-control" name="jumlah" value="1">
+                        <small class="text-muted">Jumlah</small>
                     </div>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" name="satuan" placeholder="Satuan (Pcs/Unit/dll)" required>
+                        <input type="text" class="form-control" name="satuan" placeholder="Satuan (Pcs/Unit)" required>
+                        <small class="text-muted">Satuan</small>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-3 control-label text-lg-right pt-2">Perolehan</label>	
-                    <div class="col-sm-5">
-                        <input type="date" class="form-control" name="tgl_oleh" value="<?= date('Y-m-d') ?>">
-                        <small>Tanggal</small>
-                    </div>
+                <div class="form-group row mb-4">
+                    <label class="col-sm-3 control-label text-white font-weight-semibold">Perolehan</label>	
                     <div class="col-sm-4">
-                        <input type="number" class="form-control" name="harga_oleh" placeholder="Harga">
-                        <small>Harga (IDR)</small>
+                        <input type="date" class="form-control" name="tgl_oleh" value="<?= date('Y-m-d') ?>">
+                        <small class="text-muted">Tanggal</small>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <span class="input-group-prepend"><span class="input-group-text">Rp</span></span>
+                            <input type="number" class="form-control" name="harga_oleh" placeholder="0">
+                        </div>
+                        <small class="text-muted">Harga Perolehan</small>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-3 control-label text-lg-right pt-2">Detail Bukti</label>	
+                <div class="form-group row mb-4">
+                    <label class="col-sm-3 control-label text-white font-weight-semibold">Bukti & Ket.</label>	
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="bukti_oleh" placeholder="No. Kontrak / Faktur">
-                        <small>Asal / Bukti Perolehan</small>
+                        <input type="text" class="form-control mb-2" name="bukti_oleh" placeholder="No. Kontrak / Faktur">
+                        <textarea class="form-control" name="keterangan" rows="2" placeholder="Spesifikasi / Kondisi barang..."></textarea>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-3 control-label text-lg-right pt-2">Keterangan</label>
-                    <div class="col-sm-9">
-                        <textarea class="form-control" name="keterangan" rows="2" placeholder="Spesifikasi / Kondisi"></textarea>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-3 control-label text-lg-right pt-2">Lampiran Foto</label>
+                <div class="form-group row mb-4">
+                    <label class="col-sm-3 control-label text-white font-weight-semibold">Lampiran Foto</label>
                     <div class="col-sm-9">
                         <input type="file" class="form-control" name="lampiran">
                     </div>
                 </div>  
                 
-                <hr>
-                <div class="text-right">
-                    <button type="button" class='btn btn-default modal-dismiss'>Batal</button>
-                    <button type="submit" class='btn btn-primary'><i class="fa fa-plus-circle"></i> SimpancData</button>
+                <div class="mt-5 text-right">
+                    <button type="button" class='btn btn-dark px-4 mr-2 modal-dismiss'>Batal</button>
+                    <button type="submit" class='btn btn-primary px-5'>
+                        <i class="fa fa-save mr-2"></i> Simpan Data Aset
+                    </button>
                 </div>
             </form>
         </div>

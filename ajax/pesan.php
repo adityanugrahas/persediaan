@@ -27,24 +27,32 @@ if ($br["jumlah_stok"] > 0) {
 $seksi = db_fetch($bp, "SELECT bagian FROM bagian WHERE id_seksi = :id", ['id' => $_SESSION['seksip']]);
 ?>
 
-<div id="modalHeaderColorDanger" class="modal-block modal-header-color modal-block-danger">
+<div id="modalHeaderColorDanger" class="modal-block modal-block-md">
     <section class="card">
         <header class="card-header">
             <div class="card-actions">
-                <button class="btn btn-dark btn-sm modal-dismiss">X</button>
+                <button class="btn btn-dark btn-sm modal-dismiss"><i class="fa fa-times"></i></button>
             </div>
-            <h2 class="card-title">Form <?= htmlspecialchars($judul) ?></h2>
-            <span style="color:#fff"><?= htmlspecialchars($sub) ?></span>
+            <h2 class="card-title"><i class="fa fa-shopping-cart mr-2"></i> Form <?= htmlspecialchars($judul) ?></h2>
+            <p class="mb-0 text-muted" style="font-size: 0.85rem; opacity: 0.8;"><?= htmlspecialchars($sub) ?></p>
         </header>
         <div class="card-body">
-            <center>
-                <span class="highlight" style='font-weight:bolder'><?= htmlspecialchars($br['nama_barang']) ?></span><br>
-                <img src="img/barang/<?= htmlspecialchars($barang) ?>" height="200" alt="Barang Photo">
-                <br>
-                <span class="highlight">Jumlah Stok : <?= htmlspecialchars($br['jumlah_stok']) ?></span>
-            </center> 
-            <hr>
-            <form id='order_form' method='POST' action='?p=proadd&tab=<?= htmlspecialchars($act) ?>' enctype='multipart/form-data' class='form-horizontal mb-lg'>
+            <div class="row mb-4 align-items-center">
+                <div class="col-md-4 text-center">
+                    <div style="background: var(--glass-heavy); border-radius: var(--radius-md); padding: 10px; border: 1px solid var(--glass-border);">
+                        <img src="img/barang/<?= htmlspecialchars($barang) ?>" style="max-width: 100%; max-height: 180px; border-radius: var(--radius-sm);" alt="Barang Photo" onerror="this.src='img/barang/barang.png'">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <h3 class="mt-0 text-white font-weight-bold"><?= htmlspecialchars($br['nama_barang']) ?></h3>
+                    <div class="badge badge-<?= $warna ?> mb-2">Stok: <?= htmlspecialchars($br['jumlah_stok']) ?> <?= htmlspecialchars($br['satuan']) ?></div>
+                    <p class="text-muted small mb-0"><i class="fa fa-info-circle"></i> <?= htmlspecialchars($br['keterangan']) ?></p>
+                </div>
+            </div>
+            
+            <hr class="border-secondary opacity-2">
+            
+            <form id='order_form' method='POST' action='?p=proadd&tab=<?= htmlspecialchars($act) ?>' enctype='multipart/form-data' class='form-horizontal'>
                 <input type='hidden' name='jenis' value='out'>
                 <input type='hidden' name='status' value='0'>	
                 <input type='hidden' name='id_barang' value='<?= htmlspecialchars($br['id_barang']) ?>'>
@@ -52,53 +60,45 @@ $seksi = db_fetch($bp, "SELECT bagian FROM bagian WHERE id_seksi = :id", ['id' =
                 <input type='hidden' name='ket_barang' value='<?= htmlspecialchars($br['keterangan']) ?>'>
                 <input type='hidden' name='jum_stok' value='<?= htmlspecialchars($br['jumlah_stok']) ?>'>
                 
-                <div class="form-group row">
-                    <label class="col-lg-4 control-label text-lg-right pt-2">Deskripsi Barang</label>
+                <div class="form-group row mb-4">
+                    <label class="col-lg-4 control-label text-white font-weight-semibold">Jumlah <?= htmlspecialchars($judul) ?></label>
                     <div class="col-lg-8">
-                        <input type='text' value="<?= htmlspecialchars($br['keterangan']) ?>" class='form-control' disabled>
+                        <div class="input-group">
+                            <input type='number' name='jum_pes' min='1' max='<?= $br['jumlah_stok'] > 0 ? $br['jumlah_stok'] : "" ?>' class='form-control' placeholder='Jumlah' required/>
+                            <span class="input-group-append">
+                                <span class="input-group-text"><?= htmlspecialchars($br['satuan']) ?></span>
+                            </span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label class="col-lg-4 control-label text-lg-right pt-2">Jumlah Pesan</label>
-                    <div class="col-lg-3">
-                        <input type='number' name='jum_pes' min='1' class='form-control' placeholder='Jumlah' required/>
-                    </div>
-                    <div class="col-lg-5">
-                        <input type='text' class='form-control' value="<?= htmlspecialchars($br['satuan']) ?>" disabled/>
-                        <input type='hidden' name='satuan' value="<?= htmlspecialchars($br['satuan']) ?>" />
+                <div class="form-group row mb-4">
+                    <label class="col-lg-4 control-label text-white font-weight-semibold">Keterangan / Keperluan</label>
+                    <div class="col-lg-8">
+                        <textarea name='keterangan' class='form-control' rows="2" placeholder="Tuliskan keterangan pemakaian..."></textarea>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label class="col-lg-4 control-label text-lg-right pt-2">Keterangan</label>
+                <div class="form-group row mb-4">
+                    <label class="col-lg-4 control-label text-white font-weight-semibold">Unit & Petugas</label>
                     <div class="col-lg-8">
-                        <input type='text' name='keterangan' class='form-control' placeholder="Keterangan pemakaian">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-lg-4 control-label text-lg-right pt-2">Bagian / Seksi</label>
-                    <div class="col-lg-8">
-                        <input type='text' value="<?= htmlspecialchars($seksi['bagian'] ?? '') ?>" class='form-control' disabled>
+                        <div class="p-3 border-radius-md" style="background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: var(--radius-sm);">
+                            <div class="small text-muted mb-1">BAGIAN / SEKSI</div>
+                            <div class="font-weight-bold text-white mb-2"><?= htmlspecialchars($seksi['bagian'] ?? 'N/A') ?></div>
+                            <div class="small text-muted mb-1">NAMA PETUGAS</div>
+                            <div class="font-weight-bold text-white"><?= htmlspecialchars($_SESSION['namap']) ?></div>
+                        </div>
                         <input type='hidden' name='id_seksi' value="<?= htmlspecialchars($_SESSION['seksip']) ?>">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-lg-4 control-label text-lg-right pt-2">Petugas</label>
-                    <div class="col-lg-8">
-                        <input type='text' value="<?= htmlspecialchars($_SESSION['namap']) ?>" class='form-control' disabled>
                         <input type='hidden' name='id_petugas' value="<?= htmlspecialchars($_SESSION['idp']) ?>">
                     </div>
                 </div>
                 
-                <hr>
-                <footer class='panel-footer'>
-                        <div class='col-md-12 text-right'>
-                            <button type="button" class='btn btn-warning modal-dismiss'>Batal</button>
-                            <button type="submit" class='btn btn-default modal-submit'><i class="fa fa-cart-arrow-down"></i> OK </button>
-                        </div>
-                </footer>	
+                <div class='mt-5 text-right'>
+                    <button type="button" class='btn btn-dark px-4 mr-2 modal-dismiss'>Batal</button>
+                    <button type="submit" class='btn btn-primary px-5 modal-submit'>
+                        <i class="fa fa-check-circle mr-2"></i> Konfirmasi <?= htmlspecialchars($judul) ?>
+                    </button>
+                </div>
             </form>
         </div>
     </section>

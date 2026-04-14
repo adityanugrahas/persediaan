@@ -41,36 +41,72 @@ Persediaan is a robust, secure, and modern web application built for seamless tr
 └── schema_pg.sql       # PostgreSQL database schema & seeds
 ```
 
-## ⚙️ Installation
+## ⚙️ Deployment & Installation Guide
 
-### 1. Requirements
-*   Web Server (Nginx / Apache)
-*   PHP 7.4 or higher
-*   PostgreSQL (Recommended) or MySQL
-*   `php-pdo-pgsql` or `php-pdo-mysql` extension
+This section provides a detailed walkthrough for deploying the application on a **Debian/Ubuntu** server using a **LEMP** (Linux, Nginx, PostgreSQL, PHP) stack.
 
-### 2. Database Setup
-1.  Create a new database (e.g., `db_persediaan`).
-2.  Import the schema:
-    ```bash
-    psql -U your_user -d db_persediaan -f schema_pg.sql
-    ```
+### 1. Server Preparation
+Update your system and install the required packages:
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y nginx postgresql php-fpm php-pdo-pgsql php-gd php-curl php-mbstring git
+```
 
-### 3. Configuration
-1.  Navigate to `global/koneksi.php`.
-2.  Update your database credentials:
-    ```php
-    $host = 'localhost';
-    $db   = 'db_persediaan';
-    $user = 'your_username';
-    $pass = 'your_password';
-    ```
+### 2. Database Configuration (PostgreSQL)
+1. **Switch to Postgres user:** `sudo -u postgres psql`
+2. **Setup User & DB:**
+   ```sql
+   CREATE DATABASE db_persediaan;
+   CREATE USER pt_user WITH ENCRYPTED PASSWORD 'your_secure_password';
+   GRANT ALL PRIVILEGES ON DATABASE db_persediaan TO pt_user;
+   \q
+   ```
+3. **Import Schema:**
+   ```bash
+   psql -U pt_user -d db_persediaan -h localhost -f schema_pg.sql
+   ```
 
-### 4. Permissions
-Ensure the following directories are writable by the web server:
-*   `img/barang/`
-*   `img/users/`
-*   `img/bmn/`
+### 3. Application Setup
+1. **Clone/Upload** the files to `/var/www/persediaan`.
+2. **Configure Database**: Edit `global/koneksi.php` with your credentials:
+   ```php
+   $host = 'localhost';
+   $db   = 'db_persediaan';
+   $user = 'pt_user';
+   $pass = 'your_secure_password';
+   ```
+3. **Permissions**:
+   ```bash
+   sudo chown -R www-data:www-data /var/www/persediaan
+   sudo chmod -R 755 /var/www/persediaan
+   sudo chmod -R 775 /var/www/persediaan/img/
+   ```
+
+### 4. Nginx Site Configuration
+Create `/etc/nginx/sites-available/persediaan`:
+```nginx
+server {
+    listen 80;
+    server_name your_domain_or_ip;
+    root /var/www/persediaan;
+    index index.php;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.x-fpm.sock;
+    }
+}
+```
+Enable the site: `sudo ln -s /etc/nginx/sites-available/persediaan /etc/nginx/sites-enabled/ && sudo systemctl restart nginx`
+
+## 🛡️ Security Hardening
+*   **SSL**: Always use `certbot` for HTTPS: `sudo certbot --nginx`.
+*   **App Logic**: directe access to `global/` and `proses/` is restricted via index logic.
+*   **Env**: Ensure `display_errors` is `Off` in production `php.ini`.
 
 ## 🛡️ Security Best Practices
 *   **Production Move**: Disable `display_errors` in your `php.ini`.

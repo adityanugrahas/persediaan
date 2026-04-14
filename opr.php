@@ -44,6 +44,7 @@ if (($_SESSION["statep"] ?? '') === "login" && $level === "opr") {
     <link rel="stylesheet" href="vendor/jquery-ui/jquery-ui.css" />
     <link rel="stylesheet" href="vendor/jquery-ui/jquery-ui.theme.css" />
     <link rel="stylesheet" href="vendor/bootstrap-multiselect/css/bootstrap-multiselect.css" />
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <link rel="stylesheet" href="vendor/morris/morris.css" />
     <link rel="stylesheet" href="vendor/select2/css/select2.css" />
     <link rel="stylesheet" href="vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />

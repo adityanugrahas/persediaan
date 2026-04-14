@@ -43,6 +43,8 @@ if ($level === "su") {
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <!-- Vendor CSS -->
+    <!-- Statistics & Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" href="vendor/animate/animate.css">
     <link rel="stylesheet" href="vendor/font-awesome/css/all.min.css" />

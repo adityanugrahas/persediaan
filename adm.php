@@ -44,7 +44,9 @@ $set = $stmt_set->fetch();
 		<link rel="stylesheet" href="vendor/jquery-ui/jquery-ui.css" />
 		<link rel="stylesheet" href="vendor/jquery-ui/jquery-ui.theme.css" />
 		<link rel="stylesheet" href="vendor/bootstrap-multiselect/css/bootstrap-multiselect.css" />
-		<link rel="stylesheet" href="vendor/morris/morris.css" />
+    <!-- Statistics & Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="stylesheet" href="vendor/morris/morris.css" />
         <link rel="shortcut icon" href="img/<?= htmlspecialchars($set['favicon'] ?? 'favicon.png') ?>" type="image/x-icon" />
     <title>Sistem Persediaan - Administrator</title>
 		<link rel="stylesheet" href="vendor/elusive-icons/css/elusive-icons.css">

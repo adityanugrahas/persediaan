@@ -1,7 +1,7 @@
 <?php
 if(!empty($_REQUEST['p']))
 { $p=htmlspecialchars($_REQUEST['p']); }
-else {$p='stok';}
+else {$p='home';}
  
 
 switch ($p)

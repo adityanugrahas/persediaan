@@ -45,7 +45,8 @@ $set = $stmt_set->fetch();
 		<link rel="stylesheet" href="vendor/jquery-ui/jquery-ui.theme.css" />
 		<link rel="stylesheet" href="vendor/bootstrap-multiselect/css/bootstrap-multiselect.css" />
 		<link rel="stylesheet" href="vendor/morris/morris.css" />
-        <link rel="stylesheet" href="vendor/simple-line-icons/css/simple-line-icons.css">
+        <link rel="shortcut icon" href="img/<?= htmlspecialchars($set['favicon'] ?? 'favicon.png') ?>" type="image/x-icon" />
+    <title>Sistem Persediaan - Administrator</title>
 		<link rel="stylesheet" href="vendor/elusive-icons/css/elusive-icons.css">
 
 		<!-- Specific Page Vendor CSS -->
@@ -85,9 +86,9 @@ $set = $stmt_set->fetch();
 			<!-- start: header -->
 			<header class="header">
 				<div class="logo-container">
-					<a href="index.php" class="logo">
-						<img src="img/<?php echo"$set[logo_header]";?>" width="75" height="35" alt="<?php echo"$set[logo_header]";?>" />
-					</a>
+					<a href="adm.php" class="logo">
+                    <img src="img/<?= htmlspecialchars($set['logo_header']) ?>" height="50" alt="Logo" />
+                </a>
 					<form action="?p=stok" method="get" class="logo">
 						<input type="hidden" name="p" value="cari">
 						<div class="input-group mb-3">

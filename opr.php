@@ -35,6 +35,8 @@ if (($_SESSION["statep"] ?? '') === "login" && $level === "opr") {
 
     <!-- Vendor CSS -->
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css" />
+    <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/0/0a/Logo_Ditjen_Imigrasi.webp" type="image/x-icon" />
+    <title>Sistem Persediaan - Operator</title>
     <link rel="stylesheet" href="vendor/animate/animate.css">
     <link rel="stylesheet" href="vendor/font-awesome/css/all.min.css" />
     <link rel="stylesheet" href="vendor/magnific-popup/magnific-popup.css" />
@@ -66,7 +68,7 @@ if (($_SESSION["statep"] ?? '') === "login" && $level === "opr") {
         <header class="header header-nav-menu header-nav-stripe">
             <div class="logo-container">
                 <a href="opr.php" class="logo">
-                    <img src="img/<?= htmlspecialchars($set['logo_header'] ?? '') ?>" width="75" height="35" alt="Logo" />
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Logo_Ditjen_Imigrasi.webp" height="55" alt="Ditjen Imigrasi" />
                 </a>
 
                 <form action="" method="get" class="logo">

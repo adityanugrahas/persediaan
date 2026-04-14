@@ -431,6 +431,16 @@ function setting2()
            ->execute(['logo' => $filename, 'id' => $id]);
     }
 
+    $fav_lama = $_POST["favicon_lama"];
+    $favname = handle_upload('favicon_baru', 'img/', $tgl . '-fav', 64);
+    if ($favname) {
+        if (!empty($fav_lama) && file_exists("img/{$fav_lama}") && $fav_lama != 'favicon.png') {
+            @unlink("img/{$fav_lama}");
+        }
+        $bp->prepare("UPDATE setting SET favicon = :fav WHERE setting_id = :id")
+           ->execute(['fav' => $favname, 'id' => $id]);
+    }
+
     $bp->prepare("UPDATE setting SET title_head = :title, nama_kantor = :nama, alamat_kantor = :alamat, telp_kantor = :telp, email_kantor = :email WHERE setting_id = :id")
        ->execute([
            'title'  => $title,

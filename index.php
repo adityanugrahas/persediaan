@@ -28,6 +28,7 @@ if (!$set) {
     <meta name="description" content="Sistem Manajemen Persediaan — <?= htmlspecialchars($set['nama_kantor']) ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="theme-color" content="#0a0e1a">
+    <link rel="shortcut icon" href="img/<?= htmlspecialchars($set['favicon'] ?? 'favicon.png') ?>" type="image/x-icon" />
 
     <!-- Modern Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">

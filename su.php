@@ -33,7 +33,8 @@ if ($level === "su") {
 <html lang="id" class="fixed has-top-menu">
 <head>
     <meta charset="UTF-8">
-    <title><?= htmlspecialchars($set['title_head']) ?> - Super User</title>
+    <link rel="shortcut icon" href="img/<?= htmlspecialchars($set['favicon'] ?? 'favicon.png') ?>" type="image/x-icon" />
+    <title>Sistem Persediaan - Super User</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <!-- Modern Typography -->
@@ -72,7 +73,7 @@ if ($level === "su") {
         <header class="header">
             <div class="logo-container">
                 <a href="su.php" class="logo">
-                    <img src="img/<?= htmlspecialchars($set['logo_header']) ?>" width="100" height="45" alt="Logo" style="object-fit: contain;" />
+                    <img src="img/<?= htmlspecialchars($set['logo_header']) ?>" height="55" alt="Logo" />
                 </a>
                 
                 <div class="d-md-none toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">

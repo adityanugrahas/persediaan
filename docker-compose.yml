@@ -11,7 +11,9 @@ services:
     tty: true
     environment:
       SERVICE_NAME: app
-      SERVICE_TAGS: dev
+      SERVICE_TAGS: production
+      PHP_PRODUCTION: "true"
+      DATABASE_PATH: "/var/www/html/database.sqlite"
     volumes:
       - ./:/var/www/html
       - ./database.sqlite:/var/www/html/database.sqlite

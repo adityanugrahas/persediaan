@@ -5,13 +5,18 @@
  */
 
 // Production Stage Settings
-$is_production = true; // Toggle as needed
+// Environment-driven configuration
+$is_production = filter_var(getenv('PHP_PRODUCTION') ?: true, FILTER_VALIDATE_BOOLEAN);
 
 if ($is_production) {
     error_reporting(0);
     ini_set('display_errors', 0);
     ini_set('log_errors', 1);
-    ini_set('error_log', __DIR__ . '/../logs/php_errors.log');
+    
+    // Ensure logs directory exists
+    $logs_dir = __DIR__ . '/../logs';
+    if (!is_dir($logs_dir)) { mkdir($logs_dir, 0755, true); }
+    ini_set('error_log', $logs_dir . '/php_errors.log');
     
     // Security Headers
     header("X-Frame-Options: SAMEORIGIN");
@@ -23,8 +28,8 @@ if ($is_production) {
     ini_set('display_errors', 1);
 }
 
-// Database configuration — SQLite for local development
-$db_path = __DIR__ . '/../database.sqlite';
+// Database path from ENV or default
+$db_path = getenv('DATABASE_PATH') ?: __DIR__ . '/../database.sqlite';
 
 try {
     $dsn = "sqlite:" . $db_path;

@@ -59,14 +59,18 @@ For local development and building assets/containers:
 
 ---
 
-### 🚀 Production Deployment (Docker)
+### 🚀 One-Step Production Deployment
 
-To deploy a production-ready instance using Docker:
+To deploy a fully configured, production-ready instance:
 
-1.  **Start in Detached Mode**:
-    ```bash
-    npm run production
-    ```
+```bash
+npm run deploy
+```
+
+This single command will:
+1.  **Initialize Environment**: Create missing directories (`logs`, `img/branding`, `lampiran`).
+2.  **Bootstrap Database**: Safe-initialize `database.sqlite` with the latest schema.
+3.  **Orchestrate Containers**: Build and start the Nginx + PHP-FPM stack in detached mode.
 2.  **Initialize Database**:
     The system automatically initializes `database.sqlite` on the first run. To force a re-init:
     ```bash

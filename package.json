@@ -5,13 +5,15 @@
   "main": "index.php",
   "scripts": {
     "dev": "php -S localhost:8080",
+    "setup": "php -r \"if(!is_dir('logs'))mkdir('logs'); if(!is_dir('img/branding'))mkdir('img/branding',0777,true); if(!is_dir('lampiran'))mkdir('lampiran'); echo 'Environment ready.\\n';\"",
+    "db:init": "php -r \"require 'global/koneksi.php'; echo 'Database initialized.\\n';\"",
     "docker:up": "docker-compose up -d --build",
     "docker:down": "docker-compose down",
     "docker:logs": "docker-compose logs -f",
     "docker:rebuild": "docker-compose up -d --build --force-recreate",
-    "db:init": "php -r \"require 'global/koneksi.php';\"",
     "clean": "rm -rf logs/*.log",
-    "production": "npm run docker:up"
+    "deploy": "npm run setup && npm run db:init && npm run docker:up",
+    "production": "npm run deploy"
   },
   "keywords": [
     "inventory",

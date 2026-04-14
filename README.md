@@ -23,64 +23,82 @@ Persediaan is a robust, secure, and modern web application built for seamless tr
 
 *   **Backend**: PHP 8.2+ (PDO-based)
 *   **Database**: SQLite (Default) / Support for PostgreSQL & MySQL schemas included.
-*   **Frontend**: Vanilla CSS 3 with Glassmorphism Design System, HTML5, Modern JS.
+*   **Frontend**: Vanilla CSS 3 (Glassmorphism), HTML5, Modern JS.
 *   **Containerization**: Docker & Docker Compose.
 *   **Task Runner**: NPM (Node Package Manager).
 
 ## ⚙️ Deployment & Installation
 
-This project utilizes **NPM** as a task runner to simplify both local development and Docker orchestration.
+This project utilizes **NPM** as a unified task runner to simplify development, building, and production orchestration.
 
 ### Prerequisites
-- **Node.js & NPM**: Required for running shortcuts.
-- **PHP 8.2+**: Required for local server (Option A).
-- **Docker & Docker Compose**: Required for containerized deployment (Option B).
+- **Node.js & NPM**: For running shortcuts and lifecycle scripts.
+- **Docker & Docker Compose**: Recommended for production.
+- **PHP 8.2+**: Required only if running locally without Docker.
 
 ---
 
-### Option A: Local Development (NPM + PHP)
-Best for quick testing or UI modifications without Docker.
+### 🛠️ Build & Development
 
-1.  **Initialize Project**:
+For local development and building assets/containers:
+
+1.  **Initialize & Install**:
     ```bash
     npm install
     ```
-2.  **Start PHP Development Server**:
+2.  **Local Dev Server (No Docker)**:
+    Runs a lightweight PHP server at port 8080.
     ```bash
     npm run dev
     ```
-3.  **Access**: Open [http://localhost:8080](http://localhost:8080) in your browser.
-
----
-
-### Option B: Docker Deployment (Recommended)
-Best for consistent environments and production-like testing.
-
-1.  **Build and Start Containers**:
-    This will spin up two containers: `persediaan-app` (PHP-FPM) and `persediaan-web` (Nginx).
+3.  **Build Deployment Containers**:
+    Compiles the `Dockerfile` and prepares the Nginx/PHP-FPM stack.
     ```bash
     npm run docker:up
     ```
-2.  **Access**: Open [http://localhost:8080](http://localhost:8080).
-3.  **Manage Environment**:
-    -   **View Logs**: `npm run docker:logs`
-    -   **Rebuild Image**: `npm run docker:rebuild`
-    -   **Stop Containers**: `npm run docker:down`
 
 ---
 
-### Option C: Manual Production Deployment (LEMP)
-The system is optimized for **LEMP** (Linux, Nginx, PostgreSQL/SQLite, PHP) stacks.
+### 🚀 Production Deployment (Docker)
 
-1.  **Install Required PHP Extensions**:
-    `pdo_sqlite` (or `pdo_pgsql`), `gd`, `curl`, `mbstring`, `intl`, `zip`.
-2.  **Set Permissions**:
-    Ensure the web server has write access:
+To deploy a production-ready instance using Docker:
+
+1.  **Start in Detached Mode**:
     ```bash
-    sudo chown -R www-data:www-data /var/www/persediaan
-    sudo chmod -R 775 /var/www/persediaan/img/
-    sudo chmod -R 775 /var/www/persediaan/logs/
-    sudo chmod 664 /var/www/persediaan/database.sqlite
+    npm run production
+    ```
+2.  **Initialize Database**:
+    The system automatically initializes `database.sqlite` on the first run. To force a re-init:
+    ```bash
+    npm run db:init
+    ```
+3.  **Monitor Health**:
+    ```bash
+    npm run docker:logs
+    ```
+
+---
+
+### ✅ Production Readiness Checklist
+
+Before moving to a live environment, ensure the following:
+
+1.  **Toggle Production Mode**:
+    In `global/koneksi.php`, set `$is_production = true;`. This enables security headers and suppresses public error messages.
+2.  **File Permissions**:
+    If not using Docker, ensure the web server (`www-data`) owns the following:
+    ```bash
+    chmod -R 775 img/ logs/
+    chmod 664 database.sqlite
+    ```
+3.  **SSL Configuration**:
+    Always use HTTPS. If using the provided `nginx.conf` in Docker, consider adding a certbot volume or a reverse proxy (Nginx Proxy Manager/Traefik).
+4.  **Database Hardening**:
+    For high-concurrency production, use PostgreSQL. Import `schema_pg.sql` and update `global/koneksi.php` with your credentials.
+5.  **Clean Logs**:
+    Clear any development logs before launch:
+    ```bash
+    npm run clean
     ```
 
 ## 📂 Project Structure
@@ -101,14 +119,14 @@ The system is optimized for **LEMP** (Linux, Nginx, PostgreSQL/SQLite, PHP) stac
 └── database.sqlite     # Portable SQLite database
 ```
 
-## 🛡️ Security Hardening
+## 🛡️ Security
 
-*   **SSL/TLS**: Mandatory for production. Use `certbot` for free Let's Encrypt certificates.
-*   **Database Access**: The `nginx.conf` and project logic are pre-configured to block direct access to `.sqlite`, `.sql`, and `.log` files.
-*   **Error Reporting**: In production, ensure `display_errors` is set to `Off` in `php.ini`. Errors are automatically logged to the `logs/` directory.
+*   **Restricted Access**: Direct access to `global/`, `proses/`, and sensitive files (`.sqlite`, `.log`) is blocked via `nginx.conf`.
+*   **CSRF**: Integrated helpers are used in all POST forms.
+*   **Audit**: Regularly monitor `logs/php_errors.log` for any suspicious activity.
 
 ## 🤝 Contributing
-Feel free to fork this project and submit pull requests for UI enhancements or additional modules. For major changes, please open an issue first.
+Feel free to fork this project and submit pull requests. For major changes, please open an issue first.
 
 ## 📄 License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

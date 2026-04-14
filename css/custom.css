@@ -277,6 +277,51 @@ ul.nav-main .nav-children li a:hover {
     background: var(--glass-heavy) !important;
 }
 
+/* --- BRANDING & WATERMARKS --- */
+body::before {
+    content: "";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    height: 600px;
+    transform: translate(-50%, -50%);
+    background-image: url('../img/branding/logo_imigrasi.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.12; /* Base background opacity for readability */
+    z-index: -1;
+    pointer-events: none;
+    filter: grayscale(1) brightness(1.5);
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 150px;
+    height: 150px;
+    background-image: url('../img/branding/logo_imigrasi.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.08; /* Sub-component opacity */
+    pointer-events: none;
+    z-index: 0;
+    filter: grayscale(1) brightness(2);
+}
+
+.badge-branding {
+    background-image: url('../img/branding/logo_imigrasi.png');
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    padding-left: 30px !important;
+    opacity: 0.25; /* Specific badge request */
+}
+
 /* Content Body Transparency */
 .content-body {
     padding: var(--spacing-md) var(--spacing-lg) !important;

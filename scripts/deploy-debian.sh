@@ -67,7 +67,7 @@ chown -R www-data:www-data .
 chmod -R 775 img/ logs/
 
 # 6. Database Initialization
-echo "🗄️ Initializing SQLite production database..."
+echo "🗄️ Initializing and Seeding Production Database..."
 npm run setup
 npm run db:init
 
